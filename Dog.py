@@ -6,6 +6,8 @@ class Dog:
         self.update_weight()
 
         self.days = 0
+        self.eg = self.newday()
+        self.full = False
         breed2color = {
             "Poodle" : "black",
             "Maltese" : "white"
@@ -15,24 +17,32 @@ class Dog:
     def amounts(self):
         amount = round(self.weight * 1000 * 0.01, 2)
         print(f"{self.name}은(는) 하루에 {amount}g의 사료를 먹습니다.")
-        return self.amount
+        return amount
 
-    def day(self):
+    def newday(self):
         self.days += 1
-        g = 0
-        print(f"{self.name}와(과) 함께한 날이 하루 더 늘었습니다.")
-        return g
+        self.eg = 0
+        return self.eg
+
+    def withdays(self):
+        print(f"{self.name}와(과) 함께한 날은 {self.days}일 입니다.")
 
     def eat(self, g):
-        g += g
-        self.amounts()
-        if g < self.amount:
-            print(f"{self.name}은(는) 오늘 {g}g의 사료를 먹었습니다. 더 먹을 수 있어요!")
-            full = False
+        amount = self.amounts()
+        self.eg += g
+        if self.eg < amount:
+            print(f"{self.name}은(는) 오늘 {self.eg}g의 사료를 먹었습니다. 더 먹을 수 있어요!")
+            self.full = False
         else:
-            print(f"{self.name}은(는) 오늘 {g}g의 사료를 먹었습니다. 이제 배불러요!")
-            full = True
-        return g, full
+            print(f"{self.name}은(는) 오늘 {self.eg}g의 사료를 먹었습니다. 이제 배불러요!")
+            self.full = True
+        return self.eg, self.full
+
+    def isfull(self):
+        if self.full:
+            print(f"배불러요!")
+        else:
+            print(f"배부르지 않아요!")
 
     def get_color(self):
         return self.color
